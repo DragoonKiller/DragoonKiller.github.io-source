@@ -10,8 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="OpenTK 是C#对 OpenGL, OpenAL 和 OpenCL 的封装.这里只讲 OpenTK 基础用法, 不教以上三个API.
-从网上下载OpenTK源代码然后编译得到一个OpenTK.dll.在工程中引用它:12345678&amp;lt;ItemGroup&amp;gt;...    &amp;lt;Refe">
+        <meta name="description" content="OpenTK 是C#对 OpenGL, OpenAL 和 OpenCL 的封装.这里只讲 OpenTK 基础用法, 以及简要介绍其中一些组件, 不教以上三套API.">
     
 
     <!--Author-->
@@ -166,7 +165,8 @@
         
 
         <!-- Post Content -->
-        <p>OpenTK 是C#对 OpenGL, OpenAL 和 OpenCL 的封装.<br>这里只讲 OpenTK 基础用法, 不教以上三个API.</p>
+        <p>OpenTK 是C#对 OpenGL, OpenAL 和 OpenCL 的封装.<br>这里只讲 OpenTK 基础用法, 以及简要介绍其中一些组件, 不教以上三套API.</p>
+<a id="more"></a>
 <p>从网上下载OpenTK源代码然后编译得到一个<code>OpenTK.dll</code>.<br>在工程中引用它:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></div><div class="line">...</div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"System.Drawing"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"OpenTK"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">HintPath</span>&gt;</span>./lib/OpenTK.dll<span class="tag">&lt;<span class="name">HintPath</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></div><div class="line">...</div><div class="line"><span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>注意 <code>System.Drawing</code> 是OpenTK的一个依赖库.<br>如果你不喜欢用工程文件而更喜欢手动编译, 那么也可以:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ... ... -reference:./OpenTK.dll</div></pre></td></tr></table></figure></p>
 <p>然后就可以开始写代码了.</p>
