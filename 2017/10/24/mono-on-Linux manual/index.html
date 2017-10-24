@@ -10,6 +10,10 @@
 
     <!--Description-->
     
+        <meta name="description" content="注意: 如果你选择 MonoDevelop, 那么这篇文章绝大部分对你没有用处.  作为一个vscode选手, 折腾一下这种东西还是有必要的.
+安装全家桶:1sudo aptitude install mono-complete
+运行时:1sudo aptitude install mono-run">
+    
 
     <!--Author-->
     
@@ -18,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Mono on Linux 不完全指南"/>
+        <meta property="og:title" content="C#/Mono on Linux 入门指南"/>
     
 
     <!--Open Graph Description-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Mono on Linux 不完全指南 - DragoonKiller&#39;s Expedition</title>
+    <title>C#/Mono on Linux 入门指南 - DragoonKiller&#39;s Expedition</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -145,7 +149,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2017/10/24/mono-on-Linux manual/">
-                Mono on Linux 不完全指南
+                C#/Mono on Linux 入门指南
             </a>
         </h1>
         <div class="post-info">
@@ -163,7 +167,36 @@
         
 
         <!-- Post Content -->
-        
+        <p><strong>注意:</strong> 如果你选择 MonoDevelop, 那么这篇文章绝大部分对你没有用处.  作为一个vscode选手, 折腾一下这种东西还是有必要的.</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>全家桶:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo aptitude install mono-complete</div></pre></td></tr></table></figure></p>
+<p>运行时:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo aptitude install mono-runtime</div></pre></td></tr></table></figure></p>
+<h3 id="编译C-源程序"><a href="#编译C-源程序" class="headerlink" title="编译C#源程序"></a>编译C#源程序</h3><p>反正在 Linux 用 Mono 基本都是为了跑 C#, 那就用 C# 举例子.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./x.cs</div></pre></td></tr></table></figure>
+<p>指定输出文件名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./x.cs -out:a.exe</div></pre></td></tr></table></figure></p>
+<p>注意冒号不能省, 在windows下参数以斜杠 / 开头不过 mono 两者都能用.</p>
+<p>可以使用正则匹配.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -out:a.exe</div></pre></td></tr></table></figure></p>
+<p>想链接外部.Net库(通常是dll文件):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -out:a.exe -resource:./OpenTK.dll</div></pre></td></tr></table></figure></p>
+<p>使用相对路径. 使用此方法生成的程序(*.exe)需要和依赖库放在同一目录下, 即使编译时它们处于不同目录下.</p>
+<p>如果不想把源程序编译成可执行代码, 而是编译成一个dll库:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -target:library -out:x.dll</div></pre></td></tr></table></figure></p>
+<h3 id="运行C-程序"><a href="#运行C-程序" class="headerlink" title="运行C#程序"></a>运行C#程序</h3><p>使用 mono 运行时:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mono ./x.exe</div></pre></td></tr></table></figure></p>
+<p>似乎在某些情况下可以直接运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./x.exe</div></pre></td></tr></table></figure></p>
+<h3 id="C-工程文件"><a href="#C-工程文件" class="headerlink" title="C#工程文件"></a>C#工程文件</h3><p>微软自家的工程以解决方案(Solution)为最顶层的元素.<br>一个解决方案包含至少一个项目(Project).  </p>
+<p>项目是基本的编译单元, 一般来说一个项目产生一个dll/exe, 但是你可以自定义编译链接流程来执行一些奇怪的操作.(并不确定真的是这样)  </p>
+<p>尽管不是很懂微软的工程文件(比CMake还乱, python/makefile大法好), 但是我们还是可以使用它.</p>
+<p>依然是以 C# 举例子. 工程文件, 例如 x.csproj, 内容大概长这样:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">DefaultTargets</span>=<span class="string">"Build"</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">OutputType</span>&gt;</span>exe<span class="tag">&lt;/<span class="name">OutputType</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">OutputPath</span>&gt;</span>./bin<span class="tag">&lt;/<span class="name">OutputPath</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">AssemblyName</span>&gt;</span>Tokamach<span class="tag">&lt;/<span class="name">AssemblyName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">TargetFrameworkVersion</span>&gt;</span>v3.5<span class="tag">&lt;/<span class="name">TargetFrameworkVersion</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">FileAlignment</span>&gt;</span>512<span class="tag">&lt;/<span class="name">FileAlignment</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Compile</span> <span class="attr">Include</span>=<span class="string">"./src/*.cs"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Compile</span> <span class="attr">Include</span>=<span class="string">"./src/Graphics/*.cs"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"System"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"System.Drawing"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"OpenTK"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">HintPath</span>&gt;</span>./lib/OpenTK.dll<span class="tag">&lt;/<span class="name">HintPath</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">Import</span> <span class="attr">Project</span>=<span class="string">"$(MSBuildToolsPath)\Microsoft.CSharp.targets"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>最后一行不能省.<br>从这个例子中我们可以清晰地看到:</p>
+<ol>
+<li>想要添加源文件, 就在ItemGroup里写上<code>&lt;Compile Include=&quot;...&quot; /&gt;</code>.</li>
+<li>支持正则匹配.</li>
+<li>想要链接一个公用的运行时库, 就在ItemGroup里写上<code>&lt;Reference Include=&quot;...&quot; /&gt;</code>.</li>
+<li>如果你的库是从别的地方搞来的, 在ItemGroup里要标记这个库的名称和相对路径, 例如<code>&lt;Reference Include=&quot;OpenTK&quot;&gt;&lt;HintPath&gt;./lib/OpenTK.dll&lt;/HintPath&gt;&lt;/Reference&gt;</code>.</li>
+<li>编译好的exe文件会被直接扔到<code>&lt;OutputPath&gt;</code>标签所在路径.</li>
+</ol>
+<p>注意, 编译完成以后, 所有外部依赖库文件会被全部拷贝到和目标可执行程序相同目录下(就是<code>&lt;OutputPath&gt;</code>指明的路径).</p>
+<p>构建工程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msbuild</div></pre></td></tr></table></figure></p>
+<p>如果你的目录里有解决方案文件(.sln文件), 它会读sln文件并构建(Build)其中声明的所有项目. 如果没有, 它会寻找项目文件(.csproj文件, .vcproj文件等)并构建它.</p>
+<p>不过我并不会写 .sln 文件…</p>
+
     </div>
 
     
@@ -171,7 +204,7 @@
     
         <div class="post-tags">
             <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/Mono/">#Mono</a> <a href="/tags/Linux/">#Linux</a>
+            <a href="/tags/C/">#C#</a> <a href="/tags/Mono/">#Mono</a> <a href="/tags/Linux/">#Linux</a>
         </div>
     
 
@@ -204,7 +237,15 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2017/10/24/mono-on-Linux manual/">Mono on Linux 不完全指南</a>
+                <a class="footer-post" href="/2017/10/24/opentk-manual/">OpenTK 入门指南</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/10/24/mono-on-Linux manual/">C#/Mono on Linux 入门指南</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/10/24/small things/">小记, 一些琐碎的东西</a>
             </li>
             
         </ul>
