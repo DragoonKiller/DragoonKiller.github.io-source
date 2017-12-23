@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="记录一些非常重要, 但是并不值得开一篇文章大谈特谈的坑.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="DragoonKiller">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="小记, 一些琐碎的东西"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DragoonKiller&#39;s Expedition"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>小记, 一些琐碎的东西 - DragoonKiller&#39;s Expedition</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/12/04/small things/">
+                小记, 一些琐碎的东西
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017.12.04</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>记录一些非常重要, 但是并不值得开一篇文章大谈特谈的坑.</p>
+<a id="more"></a>
+<ol>
+<li><p>github page 的repo名称如果不设置为 [your_name].github.io 会被认为是项目 page , 会使用 Jekyll 来组织页面. 然后 hexo 推上去就会报错. mdzz.</p>
+</li>
+<li><p>如果你配置 vscode-OmniSharp 发现工程文件无法读取, 那可能是你的电脑安装的 OmniSharp 版本太老或者有 Bug . 我用 Ubuntu 16.04 LTS 上的 apt-get 下载安装的 OmniSharp 恰好是那个出问题的版本(啊这群维护repo的在想什么). 去官网下载一个新的, 直接make, 就能解决问题了.</p>
+</li>
+<li><p>hexo 文章在首页的截断符是<code>&lt;!-- more --&gt;</code>, 注意空格, 注意空格, 注意空格.</p>
+</li>
+<li><p>C# 的迭代器是左开右闭. C++ 是左闭右开. </p>
+</li>
+<li><p>MSBuild 里的通配符 <code>**</code> 表示部分路径, <code>*</code> 表示零个或多个字符. 想要匹配目录 <code>Project</code> 及其子目录下的所有 <code>.cs</code> 文件, 可以这么写 <code>Project/**/*.cs</code>. <a href="https://stackoverflow.com/questions/8532929/two-asterisks-in-file-path" target="_blank" rel="external">参见这个网页.</a> </p>
+</li>
+<li><p>写 csproj 时用 HintPath 指定目录中的内容不要换行, 否则会无法识别. 如果写成这样能识别通常是因为在输出目录(OutputPath)里找到了对应的dll文件.</p>
+</li>
+</ol>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is DragoonKiller's personal blog, using a DK-slightly-modified theme based on "Alpha-Test".
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/05/csharp-reflection/">C#反射及其高级操作</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/mono-on-Linux manual/">C#/Mono on Linux 入门指南</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/small things/">小记, 一些琐碎的东西</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/10/24/opentk-manual/">OpenTK 入门指南</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/DragoonKiller">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:947426443@qq.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @DragoonKiller (Weiyu Chen). All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

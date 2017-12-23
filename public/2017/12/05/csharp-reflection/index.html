@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="详细讲解C#的反射, 实时编译, 动态加载程序集(Assembly)等功能.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="DragoonKiller">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="C#反射及其高级操作"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DragoonKiller&#39;s Expedition"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>C#反射及其高级操作 - DragoonKiller&#39;s Expedition</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/12/05/csharp-reflection/">
+                C#反射及其高级操作
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017.12.05</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>详细讲解C#的反射, 实时编译, 动态加载程序集(Assembly)等功能.</p>
+<a id="more"></a>
+<h3 id="C-的编译机制"><a href="#C-的编译机制" class="headerlink" title="C#的编译机制"></a>C#的编译机制</h3><p>C#的编译器会把C#源代码会编译成IL代码, 存在.exe或.dll文件中. 除了IL代码以外, 文件中还存有一些别的信息, 比如类型信息, 以及用户自定义的特性(Attribute). 这些代码逻辑之外的信息被叫做元数据(metadata).<br>反射就是读取并使用这些元数据的一种机制, 是C#元编程的途径之一.  </p>
+<p>程序集(Assembly)是最小的编译目标(Target). 通常我们会把某些文件编译到一个.exe或.dll, 它就是一个程序集. 这个概念和java的包(package), 以及python的模块(module)差不多. 不过需要注意一下, 尽管它的后缀名是 .exe/.dll, 它的格式与VisualC++编译结果有很大不同.</p>
+<p>如果你写的程序要使用一个程序集(或者说一个外部库), 我们会在编译或构建的时候指明:<br><code>csc ./x.cs -out:x.exe -reference:SomeLib.dll # for csharp compiler.</code><br>或者写到msbuild中:<br><code>&lt;Reference Include=&quot;SomeLib&quot;&gt; &lt;HintPath&gt; ... &lt;/HintPath&gt; &lt;/Reference&gt;</code><br>在我们的源代码里就可以使用了:<br><code>using SomeLib; ...;</code></p>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><p>你可以通过反射机制调用你自己的程序中的元数据. 像这样:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"><span class="keyword">using</span> <span class="keyword">static</span> System.Console;</div><div class="line">public class __Main__</div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> y;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">One</span>(<span class="params"><span class="keyword">int</span> g</span>) </span>&#123; <span class="keyword">return</span> g; &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        Type t = <span class="keyword">typeof</span>(__Main__); <span class="comment">// 对于一个(编译期的)已知类型, 使用typeof关键字.</span></div><div class="line">        </div><div class="line">        <span class="comment">// 输出"__Main__"</span></div><div class="line">        WriteLine(t.name);</div><div class="line">        </div><div class="line">        <span class="comment">// 输出所有成员函数名称, 包括属性(properties), 默认构造方法(.ctor)等.</span></div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">var</span> m <span class="keyword">in</span> t.GetMembers())</div><div class="line">            WriteLine(m.Name);</div><div class="line">        </div><div class="line">        <span class="comment">// 调用方法; 输出"2". 注意对于变长参数和虚函数, 第三个参数Binder需要自定义.</span></div><div class="line">        WriteLine((<span class="keyword">int</span>)t.InvokeMember(<span class="string">"One"</span>, BindingFlags.InvokeMethod, <span class="literal">null</span>, <span class="literal">null</span>, <span class="keyword">new</span> <span class="keyword">object</span>[]&#123;<span class="number">2</span>&#125;));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以使用 <code>Activator.CreateInstance(Type)</code> 创建对应类型的对象.<br>可以使用 <code>object.GetType()</code> 获取一个表示对象的实际类型的Type对象.<br>此外还有 <code>Type.GetFields()</code> 等函数, 可以拿到除了源代码意外的一切信息(源码被编译成IL或汇编了).<br>可以使用 <code>Type.GetTypeCode(Type)</code> 获取内置基本类型的类型编码(用于switch-case).</p>
+<h3 id="动态编译"><a href="#动态编译" class="headerlink" title="动态编译"></a>动态编译</h3><p>CodeDom的全称是<strong>Code Documentation Object Model</strong>, 是以XML的形式描述语言的一套规则和配套API. 它提供了类似于类型机制, 语法结构树等一堆用来描述代码的类. 这些类可以用来方便地生成支持语言的源代码, 或者从源代码提取逻辑. 不过我们这里不使用它们…<br>CodeDom提供了一套编程语言支持系统. 据说功能和编译器<strong>Roslyn</strong>重复了, 不过资料还是够多.<br>CodeDom内置三种语言的编译, 分别是C#, VB .Net, 还有JScript(微软自家的web编程语言, 好像是TypeScript前身).  </p>
+<p>我们可以用CodeDom进行实时文件编译, 像这样:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System.CodeDom;</div><div class="line"><span class="keyword">using</span> System.CodeDomCompiler;</div><div class="line"></div><div class="line"><span class="comment">// 下方代码写在函数里...</span></div><div class="line"><span class="keyword">var</span> pr = CodeDomProvider.CreateProvider(<span class="string">"C#"</span>);</div><div class="line"><span class="keyword">var</span> opt = <span class="keyword">new</span> CompilerParameters();</div><div class="line">opt.GenerateExecutable = <span class="literal">false</span>; <span class="comment">// true则生成可执行文件(带有入口点的程序集), false生成链接库. 默认false.</span></div><div class="line">opt.GenerateInMemory = <span class="literal">true</span>; <span class="comment">// 如果为true则直接生成到内存中, 不会保存到文件, 程序结束后直接销毁. 默认false.</span></div><div class="line">opt.ReferencedAssemblies.Add(<span class="string">"System"</span>); <span class="comment">// 外部库的绝对路径. 除非是系统库(放在编译器相同目录下)可以不写路径.</span></div><div class="line">CompilerResults cr = pr.CompileAssemblyFromSource(opt, <span class="keyword">new</span> <span class="keyword">string</span>[]&#123;source&#125;); <span class="comment">// 编译.</span></div><div class="line"><span class="keyword">if</span>(am == <span class="literal">null</span>) <span class="comment">// 检查编译结果.</span></div><div class="line">&#123;</div><div class="line">    WriteLine(<span class="string">"Compile failed!"</span>);</div><div class="line">    <span class="keyword">foreach</span>(<span class="keyword">var</span> err <span class="keyword">in</span> cr.Errors) WriteLine(err.ToString());</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;[p</div><div class="line">Assembly am = cr.CompiledAssembly; <span class="comment">// 编译成功了就拿下程序集.</span></div><div class="line"><span class="keyword">foreach</span>(Type c <span class="keyword">in</span> am.GetTypes()) <span class="comment">// 枚举程序集中每一个类. 然后干该干的事情...</span></div><div class="line">&#123;</div><div class="line">    WriteLine(<span class="string">"Class/Struct: "</span> + c.Namespace + <span class="string">"::"</span> + c.Name);</div><div class="line">    c.InvokeMember(<span class="string">"gg"</span>, BindingFlags.InvokeMethod, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>除此以外, CodeDomProvider还能解释执行C#代码.</p>
+<h3 id="加载和删除程序集"><a href="#加载和删除程序集" class="headerlink" title="加载和删除程序集"></a>加载和删除程序集</h3><p>应用程序域(AppDomain, 下文简称域)是应用程序(Application)的一个子环境. 每个域都包含若干个被加载入内存中的程序集. 一个运行中的应用程序由至少一个域组成, 程序中的每一个线程都仅在一个域内运行其中的代码, 但是一个线程可以跳到别的域执行. 主线程(Main函数所在线程)运行在主应用程序域(main AppDomain)中. 在程序一开始执行Main函数之前, 运行时环境(CLR)会创建主域, 并加载所有需要的程序集——就是在编译选项中用<code>&lt;Refernece ...&gt;</code>指定的那些库, 然后创建主线程, 运行主函数.<br>加载进应用程序域的程序集不能卸载. CLR会解析程序集并把它编译到应用程序域中, 组织函数的入口点, 编译跳转指令(大概就是运行时链接吧). CLR还可能根据程序的运行状况和代码特点做内联编译来加速运行. 创建一个应用程序域并加载一个程序集的例子如下:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// u.cs, 编译到u.dll.</span></div><div class="line"><span class="comment">// 注意编译时的文件名就是编译后这个程序集的名称. 所以要先编译到 *.dll, 再拷贝到想要的目录下.</span></div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> <span class="keyword">static</span> System.Runtime.InteropServices.Marshal;</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FunctionInvoker</span> : <span class="title">MarshalByRefObject</span> <span class="comment">// 继承自MarshalByRefObject</span></div><div class="line">                                                  <span class="comment">// 会使对象在域之间传递时作引用传递而不是值传递.f</span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="comment">// 某个函数里...</span></div><div class="line">WriteLine(AppDomain.CurrentDomain.FriendlyName); <span class="comment">// 使用当前线程所在程序集.</span></div><div class="line"></div><div class="line">AppDomain domain = <span class="keyword">new</span> AppDomain(<span class="string">"NewDomain"</span>); <span class="comment">// 给创建的域一个"友好的"名字.</span></div><div class="line">WriteLine(domain.FriendlyName); <span class="comment">// 输出"NewDomain".</span></div><div class="line"></div><div class="line"><span class="comment">// 使用下面方法把程序集加载到指定的域中.</span></div><div class="line"><span class="comment">// 注意我们不使用 AppDomain.Load 函数, 设定上, 这个函数只能被当前域调用.</span></div><div class="line"><span class="comment">// 这个函数在NewDomain内创建一个程序集 y.dll 中定义的DK.Test对象.</span></div><div class="line"><span class="comment">// 注意这个操作会让NewDomain加载 y.dll 程序集, 但是当前域不会.</span></div><div class="line">domain.CreateInstanceFrom(<span class="string">"./bin/y.dll"</span>, <span class="string">"DK.Test"</span>);</div><div class="line"></div><div class="line"><span class="comment">// 现在我们拿到了NewDomain域里的一个新对象的引用. 注意这个操作*会*把对应程序集加载到当前域.</span></div><div class="line"><span class="keyword">var</span> r = domain.CreateInstanceFromAndUnwrap(</div><div class="line">    <span class="string">"./bin/u.dll"</span>,</div><div class="line">    <span class="string">"FunctionInvoker"</span>);</div></pre></td></tr></table></figure>
+<p>现在当前域加载了程序集 <code>u.dll</code>, 我们新建的域加载了程序集 <code>u.dll</code> 和 <code>y.dll</code> ; 新建的域中还存有一个 <code>DK.Test</code> 对象, 一个 <code>FunctionInvoker</code> 对象; 在当前域中存有对新的域的引用, 还有一个对上面提到的 <code>FunctionInvoker</code> 对象的引用.<br>显然, 当前域加载了程序集 <code>u.dll</code> , 这样当前域和那个叫做 NewDomain 的域分别持有一份对程序集<code>u.dll</code> 的一份拷贝. 现在我们希望在不加载 <code>y.dll</code> 的情况下访问另一个AppDomain中的函数.  </p>
+<p>如果读者足够细心应该会发现上面某个类叫做 <code>FunctionInvoker</code>. 我们需要一种协议来在域之间做通信. 这种协议可以用反射实现, 举例如下:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// u.cs -&gt; u.dll -&gt; ./bin/u.dll</span></div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FunctionInvoker</span> : <span class="title">MarshalByRefObject</span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="keyword">string</span> type, <span class="keyword">string</span> name, <span class="keyword">object</span> target, <span class="keyword">params</span> <span class="keyword">object</span>[] args</span>)</span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">foreach</span>(<span class="keyword">var</span> a <span class="keyword">in</span> AppDomain.CurrentDomain.GetAssemblies())</div><div class="line">        &#123;</div><div class="line">            Type t = a.GetType(type);</div><div class="line">            <span class="keyword">if</span>(t != <span class="literal">null</span>)</div><div class="line">            &#123;</div><div class="line">                t.InvokeMember(name, BindingFlags.InvokeMethod, <span class="literal">null</span>, target, args);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在某函数中...</span></div><div class="line"><span class="comment">// 创建新域.</span></div><div class="line">AppDomain domain = <span class="keyword">new</span> AppDomain(<span class="string">"NewDomain"</span>);</div><div class="line"><span class="comment">// 新域加载程序集 y.dll 并创建 DK.Test 对象.</span></div><div class="line">domain.CreateInstanceFrom(<span class="string">"./bin/y.dll"</span>, <span class="string">"DK.Test"</span>);</div><div class="line"><span class="comment">// 新域加载程序集 u.dll 并创建 FunctionInvoker 对象. 当前域加载程序集 u.dll.</span></div><div class="line"><span class="keyword">var</span> r = (FunctionInvoker)domain.CreateInstanceFromAndUnwrap(</div><div class="line">    <span class="string">"./bin/u.dll"</span>,</div><div class="line">    <span class="string">"FunctionInvoker"</span>);</div><div class="line"><span class="comment">// 调用新域中的对象的函数.</span></div><div class="line">r.Invoke(<span class="string">"DK.Test"</span>, <span class="string">"Out"</span>, <span class="literal">null</span>);</div></pre></td></tr></table></figure>
+<p>注意这个<code>Invoke</code>函数. 它在程序集 u.dll 中被定义, 被两个域一起加载. 那这个<code>Invoke</code>是调用哪个域中的呢? 答案是新域NewDomain. 可以在 Invoke 函数中把 CurrentDomain.FriendlyName 输出出来印证这一点. 这样上面的 Invoke函数会执行并调用新域中的程序集 y.dll 中 DK.Test 类的 Out 方法. 由于是静态方法所以不需要传递对象.</p>
+<p>于是我们在当前域未加载 y.dll 的情况下调用了另一个域中程序集 y.dll 中的函数.</p>
+<p>如果前面 FunctionInvoker 不继承 MarshalByRefObject, 那么通过反射调用的是自己的应用程序域中的函数.</p>
+<p>另外, 执行Invoke函数的线程会跳到另一个域中执行.</p>
+<p>删除程序集很简单, 把AppDomain删掉即可: <code>AppDomain.Unload(domain);</code><br>结合上边的即使编译, 我们就可以在不掐掉程序的情况下动态实时更新程序集了. 不过如果我们需要修改协议类FunctionInvoker, 那就只能重启程序了.</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is DragoonKiller's personal blog, using a DK-slightly-modified theme based on "Alpha-Test".
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/05/csharp-reflection/">C#反射及其高级操作</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/mono-on-Linux manual/">C#/Mono on Linux 入门指南</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/small things/">小记, 一些琐碎的东西</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/10/24/opentk-manual/">OpenTK 入门指南</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/DragoonKiller">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:947426443@qq.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @DragoonKiller (Weiyu Chen). All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

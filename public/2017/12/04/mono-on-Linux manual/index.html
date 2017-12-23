@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="教你如何在 Linux 上耍 C#.
+注意: 如果你选择 MonoDevelop, 那么这篇文章绝大部分对你没有用处.  作为一个vscode选手, 折腾一下这种东西还是有必要的.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="DragoonKiller">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="C#/Mono on Linux 入门指南"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="DragoonKiller&#39;s Expedition"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>C#/Mono on Linux 入门指南 - DragoonKiller&#39;s Expedition</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/12/04/mono-on-Linux manual/">
+                C#/Mono on Linux 入门指南
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017.12.04</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>教你如何在 Linux 上耍 C#.</p>
+<p><strong>注意:</strong> 如果你选择 MonoDevelop, 那么这篇文章绝大部分对你没有用处.  作为一个vscode选手, 折腾一下这种东西还是有必要的.</p>
+<a id="more"></a>
+<h4 id="安装-Mono-不是-MonoDevelop"><a href="#安装-Mono-不是-MonoDevelop" class="headerlink" title="安装 Mono (不是 MonoDevelop)"></a>安装 Mono (不是 MonoDevelop)</h4><p>全家桶:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo aptitude install mono-complete</div></pre></td></tr></table></figure></p>
+<p>运行时:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo aptitude install mono-runtime</div></pre></td></tr></table></figure></p>
+<h3 id="编译C-源程序"><a href="#编译C-源程序" class="headerlink" title="编译C#源程序"></a>编译C#源程序</h3><p>编译一个文件, 默认输出为可执行文件. 注意虽然输出的可执行文件后缀名是 <code>exe</code>, 但是它是可以在 linux 下跑的…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./x.cs</div></pre></td></tr></table></figure></p>
+<p>指定输出文件名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./x.cs -out:a.exe</div></pre></td></tr></table></figure></p>
+<p>注意冒号不能省, 在windows下参数以斜杠 / 开头不过 mono 两者都能用.</p>
+<p>可以使用正则匹配.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -out:a.exe</div></pre></td></tr></table></figure></p>
+<p>想链接外部.Net库(通常是<strong>编译成IL的</strong>dll文件):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -out:a.exe -resource:./OpenTK.dll</div></pre></td></tr></table></figure></p>
+<p>使用相对路径. 使用此方法生成的程序(*.exe)需要和依赖库放在同一目录下, 即使编译时它们处于不同目录下.</p>
+<p>如果不想把源程序编译成可执行代码, 而是编译成一个dll, 可以:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mcs ./*.cs -target:library -out:x.dll</div></pre></td></tr></table></figure></p>
+<h3 id="运行C-程序"><a href="#运行C-程序" class="headerlink" title="运行C#程序"></a>运行C#程序</h3><p>使用 mono 运行时:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mono ./x.exe</div></pre></td></tr></table></figure></p>
+<p>似乎在某些情况下可以直接运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./x.exe</div></pre></td></tr></table></figure></p>
+<h3 id="C-工程文件"><a href="#C-工程文件" class="headerlink" title="C#工程文件"></a>C#工程文件</h3><p>微软自家的工程以解决方案(Solution)为最顶层的元素.<br>一个解决方案包含至少一个项目(Project).  </p>
+<p>项目是基本的编译单元, 一般来说一个项目产生一个dll/exe, 但是你可以自定义编译链接流程来执行一些奇怪的操作.(并不确定真的是这样)  </p>
+<p>工程文件, 例如 x.csproj, 内容大概长这样:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">DefaultTargets</span>=<span class="string">"Build"</span> <span class="attr">xmlns</span>=<span class="string">"http://schemas.microsoft.com/developer/msbuild/2003"</span> <span class="attr">ToolVersion</span>=<span class="string">"14.0"</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">OutputType</span>&gt;</span>exe<span class="tag">&lt;/<span class="name">OutputType</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">OutputPath</span>&gt;</span>./bin<span class="tag">&lt;/<span class="name">OutputPath</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">AssemblyName</span>&gt;</span>Tokamach<span class="tag">&lt;/<span class="name">AssemblyName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">TargetFrameworkVersion</span>&gt;</span>v3.5<span class="tag">&lt;/<span class="name">TargetFrameworkVersion</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">FileAlignment</span>&gt;</span>512<span class="tag">&lt;/<span class="name">FileAlignment</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">AllowUnsafeBlocks</span>&gt;</span>true<span class="tag">&lt;/<span class="name">AllowUnsafeBlocks</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Compile</span> <span class="attr">Include</span>=<span class="string">"./src/*.cs"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Compile</span> <span class="attr">Include</span>=<span class="string">"./src/**/*.cs"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"System"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"System.Drawing"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Include</span>=<span class="string">"OpenTK"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">HintPath</span>&gt;</span>./lib/OpenTK.dll<span class="tag">&lt;/<span class="name">HintPath</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">Import</span> <span class="attr">Project</span>=<span class="string">"$(MSBuildToolsPath)\Microsoft.CSharp.targets"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意最后一行<code>Import</code> 实际上帮我们配置了一堆默认的 Target. 如果你不想手动配置 Target, 这行不能省略. 如果你使用 OmniSharp, 你需要按照要求配很多个Target, 而且好像并不能查到你需要配哪些 Target 并且需要哪些参数, 所以一般都会直接用这行.</p>
+<p>从这个例子中我们可以看到:</p>
+<ol>
+<li>想要添加源文件, 就在ItemGroup里写上<code>&lt;Compile Include=&quot;...&quot; /&gt;</code>.</li>
+<li>支持正则匹配.</li>
+<li>想要链接一个公用的运行时库, 就在ItemGroup里写上<code>&lt;Reference Include=&quot;...&quot; /&gt;</code>.</li>
+<li>如果你的库是从别的地方搞来的, 在ItemGroup里要标记这个库的名称和相对路径, 例如<code>&lt;Reference Include=&quot;OpenTK&quot;&gt;&lt;HintPath&gt;./lib/OpenTK.dll&lt;/HintPath&gt;&lt;/Reference&gt;</code>. 注意HintPath不要分行写.</li>
+<li>编译好的exe文件会被直接扔到<code>&lt;OutputPath&gt;</code>标签所在路径.</li>
+</ol>
+<p>构建工程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msbuild</div></pre></td></tr></table></figure></p>
+<p>如果你的目录里有解决方案文件(.sln文件), 它会读sln文件并构建(Build)其中声明的所有项目. 如果没有, 它会寻找项目文件(.csproj文件, .vcproj文件等)并构建它.</p>
+<p>注意, 编译完成以后, 所有外部依赖库文件会被全部拷贝到和目标可执行程序相同目录下(就是<code>&lt;OutputPath&gt;</code>指明的路径).</p>
+<h3 id="调用C-C-的动态库"><a href="#调用C-C-的动态库" class="headerlink" title="调用C/C++的动态库"></a>调用C/C++的动态库</h3><p>首先按照正常方式写一个动态库:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// a-plus-b.cpp</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">int</span> <span class="title">plus</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</div></pre></td></tr></table></figure></p>
+<p>把它编译成动态库:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc ./a-plus-b.cpp -shared -fPIC -o liba-plus-b.so</div></pre></td></tr></table></figure></p>
+<p>上述语句中, <code>-shared</code> 表示生成一个动态链接库, <code>-fPIC</code> 表示生成”地址独立”的函数(呃我也不知道什么意思, 反正是 shared library 必备玩意.)<br>根据 <a href="http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html" target="_blank" rel="external">linux的文档</a>, 一般我们会把动态链接库放到 <code>/lib/</code> 或 <code>/usr/lib/</code> . 那么我们把我们的动态链接库拷到 <code>/usr/lib/</code> :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp ./liba-plus-b.so /usr/lib/</div></pre></td></tr></table></figure></p>
+<p>然后就可以使用C#提供的动态链接:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</div><div class="line">...</div><div class="line">    [<span class="meta">DllImport(<span class="meta-string">"a-plus-b"</span>)</span>]</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">plus</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b</span>)</span>;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>然后就可以当普通函数用了.</p>
+<p>注意如果在windows环境下, 上面的 C# 程序会搜索 <code>a-plus-b.dll</code>, 并且首先搜索程序目录, 其次搜索程序运行目录. 实际上, 尽管 C# 代码不依赖于平台, 你需要为不同的平台提供不同的库文件.</p>
+<p>更多详细信息参见 <a href="http://www.mono-project.com/docs/advanced/pinvoke/" target="_blank" rel="external">Mono的文档</a>.</p>
+<p>如果你使用 C++ 的方式编译你的库文件(不加<code>extern &quot;C&quot;</code>), 你的函数名称会按照某种规则(目前没找到是啥规则…)被修改. 比如我写:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">plus</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">plus</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123; <span class="keyword">return</span> a + b + c; &#125;</div></pre></td></tr></table></figure></p>
+<p>可以使用<code>nm</code>命令查看动态链接库中的函数名称:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nm -D /usr/lib/liba-plus-b.so</div></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">0000000000000680 T _Z4plusii</div><div class="line">0000000000000694 T _Z4plusiii</div></pre></td></tr></table></figure></p>
+<p>于是我们可以在我们的C#程序中这样调用函数:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">DllImport(<span class="meta-string">"a-plus-b"</span>)</span>]</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> _Z4plusii(<span class="keyword">int</span> a, <span class="keyword">int</span> b);</div></pre></td></tr></table></figure></p>
+<p>很丑..</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/C/">#C#</a> <a href="/tags/Mono/">#Mono</a> <a href="/tags/Linux/">#Linux</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is DragoonKiller's personal blog, using a DK-slightly-modified theme based on "Alpha-Test".
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/05/csharp-reflection/">C#反射及其高级操作</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/mono-on-Linux manual/">C#/Mono on Linux 入门指南</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/12/04/small things/">小记, 一些琐碎的东西</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/10/24/opentk-manual/">OpenTK 入门指南</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/DragoonKiller">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:947426443@qq.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @DragoonKiller (Weiyu Chen). All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
